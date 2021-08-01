@@ -1,6 +1,6 @@
 cc_library(
     name = "hello",
     srcs = ["hello.cpp"],
-    hdrs = ["hello.hpp"],
+    hdrs = ["hello.h"],
     visibility = ["//main:__pkg__"],
 )

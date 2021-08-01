@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "lib/hello.hpp"
+#include "lib/hello.h"
 
 int main() {
     hello::greetings(std::cout);
