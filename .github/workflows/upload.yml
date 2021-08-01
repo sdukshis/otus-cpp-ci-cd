@@ -26,10 +26,8 @@ jobs:
       run: conan remote add otus http://otus-artifactory-cpp-ce.filonovpv.name/artifactory/api/conan/conan
 
     - name: Upload conan package
-      env:
-        CONAN_USERNAME: ${{ secrets.CONAN_USERNAME }}
-        CONAN_PASSWORD: ${{ secrets.CONAN_PASSWORD }}
-      run: conan upload --confirm hello/0.*@admin/stable --all -r otus
+      run: conan user -p ${{secrets.CONAN_PASSWORD}} ${{ secrets.CONAN_USERNAME }} -r otus &&
+           conan upload --confirm hello/0.*@admin/stable --all -r otus
 
   # build-windows:
   #   # The CMake configure and build commands are platform agnostic and should work equally
