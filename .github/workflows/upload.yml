@@ -2,7 +2,8 @@ name: Upload
 
 on:
   push:
-    tags
+    tags:
+      - 0.*
 
 jobs:
   build-linux:
@@ -25,7 +26,7 @@ jobs:
       run: conan remote add otus http://otus-artifactory-cpp-ce.filonovpv.name/artifactory/api/conan/conan
 
     - name: Upload conan package
-      run: conan upload hello/0.1@admin/stable --all -r otus
+      run: conan upload hello/0.*@admin/stable --all -r otus
 
   build-windows:
     # The CMake configure and build commands are platform agnostic and should work equally
@@ -47,7 +48,7 @@ jobs:
       run: conan remote add otus http://otus-artifactory-cpp-ce.filonovpv.name/artifactory/api/conan/conan
 
     - name: Upload conan package
-      run: conan upload hello/0.1@admin/stable --all -r otus
+      run: conan upload hello/0.*@admin/stable --all -r otus
 
   build-macosx:
     # The CMake configure and build commands are platform agnostic and should work equally
@@ -69,5 +70,5 @@ jobs:
       run: conan remote add otus http://otus-artifactory-cpp-ce.filonovpv.name/artifactory/api/conan/conan
 
     - name: Upload conan package
-      run: conan upload hello/0.1@admin/stable --all -r otus
+      run: conan upload hello/0.*@admin/stable --all -r otus
 
