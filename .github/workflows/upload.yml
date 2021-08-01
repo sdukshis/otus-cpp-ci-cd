@@ -1,11 +1,8 @@
-name: Conan
+name: Upload
 
 on:
   push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
-
+    tags
 
 jobs:
   build-linux:
@@ -22,7 +19,13 @@ jobs:
       run: pip3 install conan
 
     - name: Build and test conan package
-      run: conan create . demo/testing
+      run: conan create . admin/stable
+
+    - name: Add remote artifactory
+      run: conan remote add otus http://otus-artifactory-cpp-ce.filonovpv.name/artifactory/api/conan/conan
+
+    - name: Upload conan package
+      run: conan upload hello/0.1@admin/stable --all -r otus
 
   build-windows:
     # The CMake configure and build commands are platform agnostic and should work equally
@@ -38,7 +41,13 @@ jobs:
       run: pip3 install conan
 
     - name: Build and test conan package
-      run: conan create . demo/testing
+      run: conan create . admin/stable
+
+    - name: Add remote artifactory
+      run: conan remote add otus http://otus-artifactory-cpp-ce.filonovpv.name/artifactory/api/conan/conan
+
+    - name: Upload conan package
+      run: conan upload hello/0.1@admin/stable --all -r otus
 
   build-macosx:
     # The CMake configure and build commands are platform agnostic and should work equally
@@ -54,4 +63,11 @@ jobs:
       run: pip3 install conan
 
     - name: Build and test conan package
-      run: conan create . demo/testing
+      run: conan create . admin/stable
+
+    - name: Add remote artifactory
+      run: conan remote add otus http://otus-artifactory-cpp-ce.filonovpv.name/artifactory/api/conan/conan
+
+    - name: Upload conan package
+      run: conan upload hello/0.1@admin/stable --all -r otus
+
