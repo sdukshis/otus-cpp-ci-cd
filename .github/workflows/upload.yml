@@ -26,6 +26,9 @@ jobs:
       run: conan remote add otus http://otus-artifactory-cpp-ce.filonovpv.name/artifactory/api/conan/conan
 
     - name: Upload conan package
+      env:
+        CONAN_USERNAME: ${{ secrets.CONAN_USERNAME }}
+        CONAN_PASSWORD: ${{ secrets.CONAN_PASSWORD }}
       run: conan upload hello/0.*@admin/stable --all -r otus
 
   # build-windows:
