@@ -1,2 +1,7 @@
-# otus-cpp-ci-cd
-OTUS C++ houser CI/CD examples
+#OTUS C++ houser CI/CD examples
+
+# Build
+```
+cmake -B build
+cmake --build build
+```
