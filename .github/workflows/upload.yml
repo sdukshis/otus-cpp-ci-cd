@@ -16,20 +16,17 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: Check secrets
-      run: echo $CONAN_USERNAME
+    - name: Install conan
+      run: pip3 install conan
 
-    # - name: Install conan
-    #   run: pip3 install conan
+    - name: Build and test conan package
+      run: conan create . admin/stable
 
-    # - name: Build and test conan package
-    #   run: conan create . admin/stable
+    - name: Add remote artifactory
+      run: conan remote add otus http://otus-artifactory-cpp-ce.filonovpv.name/artifactory/api/conan/conan
 
-    # - name: Add remote artifactory
-    #   run: conan remote add otus http://otus-artifactory-cpp-ce.filonovpv.name/artifactory/api/conan/conan
-
-    # - name: Upload conan package
-    #   run: conan upload hello/0.*@admin/stable --all -r otus
+    - name: Upload conan package
+      run: conan upload hello/0.*@admin/stable --all -r otus
 
   # build-windows:
   #   # The CMake configure and build commands are platform agnostic and should work equally
