@@ -29,7 +29,7 @@ jobs:
       env:
         CONAN_USERNAME: ${{ secrets.CONAN_USERNAME }}
         CONAN_PASSWORD: ${{ secrets.CONAN_PASSWORD }}
-      run: conan upload hello/0.*@admin/stable --all -r otus
+      run: conan upload --confirm hello/0.*@admin/stable --all -r otus
 
   # build-windows:
   #   # The CMake configure and build commands are platform agnostic and should work equally
