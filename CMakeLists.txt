@@ -10,7 +10,7 @@ conan_cmake_run(
     missing 
 )
 
-option(BUILD_TESTS "Build unittests" ON)
+option(BUILD_TESTS "Build unittests" OFF)
 
 include_directories(${PROJECT_SOURCE_DIR})
 add_subdirectory(lib)
