@@ -23,7 +23,7 @@ jobs:
       run: sudo apt-get update && sudo apt-get install -y clang-format clang-tidy
     
     - name: Coding Style checks
-      run: ${{github.workspace}}/format.sh
+      run: ${{github.workspace}}/format.sh check
 
     - name: Install conan
       run: pip3 install conan

@@ -8,5 +8,5 @@ if [[ "$1" == "check" ]]; then
 fi
 
 find "$SCRIPT_DIR" -not -path "*build/*" -and \( -name "*.h" -or -name "*.cpp" \) -print0 | \
-xargs -0 clang-format "$OPTS"
+xargs -0 clang-format --Wno-error=unknown "$OPTS"
 
