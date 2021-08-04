@@ -2,6 +2,4 @@
 
 #include "lib/hello.h"
 
-int main() {
-    hello::greetings(std::cout);
-}
+int main() { hello::greetings(std::cout); }
