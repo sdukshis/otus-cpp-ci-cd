@@ -3,5 +3,5 @@
 #include <ostream>
 
 namespace hello {
-    std::ostream &greetings(std::ostream &out);
+std::ostream &greetings(std::ostream &out);
 }

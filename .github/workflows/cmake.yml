@@ -87,4 +87,4 @@ jobs:
 
     - name: Run tests
       # Run 'test' cmake target
-      run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}} --target test
+      run: cmake --build ${{github.workspace}}\build --config ${{env.BUILD_TYPE}} --target test
