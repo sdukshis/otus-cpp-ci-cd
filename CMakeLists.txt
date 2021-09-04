@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.10)
 
-if(defined $ENV{GITHUB_RUN_NUMBER})
+if(DEFINED ENV{GITHUB_RUN_NUMBER})
   set(PATCH_NUM $ENV{GITHUB_RUN_NUMBER})
 else()
   set(PATCH_NUM 0)
