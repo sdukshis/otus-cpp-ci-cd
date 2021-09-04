@@ -5,7 +5,7 @@
 #include <hello.h>
 
 TEST(Hello, simple) {
-    std::stringstream ss;
-    hello::greetings(ss);
-    ASSERT_EQ("Hello, world", ss.str());
+  std::stringstream ss;
+  hello::greetings(ss);
+  ASSERT_EQ("Hello, world", ss.str());
 }
