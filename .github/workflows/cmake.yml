@@ -35,7 +35,7 @@ jobs:
 
     - name: Run tests
       # Run 'test' cmake target
-      run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}} --target test
+      run: ctest --test-dir ${{github.workspace}}/build
 
   build-windows:
     # The CMake configure and build commands are platform agnostic and should work equally
@@ -61,7 +61,7 @@ jobs:
 
     - name: Run tests
       # Run 'test' cmake target
-      run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}} --target test
+      run: ctest --test-dir ${{github.workspace}}/build
 
   build-macosx:
     # The CMake configure and build commands are platform agnostic and should work equally
@@ -87,4 +87,4 @@ jobs:
 
     - name: Run tests
       # Run 'test' cmake target
-      run: cmake --build ${{github.workspace}}\build --config ${{env.BUILD_TYPE}} --target test
+      run: ctest --test-dir ${{github.workspace}}/build
