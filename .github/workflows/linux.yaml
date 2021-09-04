@@ -20,7 +20,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Install tools
-      run: sudo apt-get install -y clang-format clang-tidy
+      run: sudo apt update -y && sudo apt install -y clang-format clang-tidy python3-pip g++ cmake
     
     - name: Coding Style checks
       run: ${{github.workspace}}/format.sh check
