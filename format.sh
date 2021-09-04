@@ -1,6 +1,6 @@
 #/bin/bash
 
-CLANG_FORMAT="clang-format-12"
+CLANG_FORMAT="clang-format"
 SCRIPT_DIR="$(dirname $0)"
 OPTS="-i"
 
