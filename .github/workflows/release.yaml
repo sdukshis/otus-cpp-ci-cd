@@ -1,0 +1,67 @@
+name: Linux
+
+on:
+  push:
+    branches: [ main ]
+
+env:
+  # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
+  BUILD_TYPE: Debug
+
+jobs:
+  build-linux:
+    # The CMake configure and build commands are platform agnostic and should work equally
+    # well on Windows or Mac.  You can convert this to a matrix build if you need
+    # cross-platform coverage.
+    # See: https://docs.github.com/en/free-pro-team@latest/actions/learn-github-actions/managing-complex-workflows#using-a-build-matrix
+    runs-on: ubuntu-20.04
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install tools
+      run: sudo apt-add-repository "deb http://apt.llvm.org/focal/ llvm-toolchain-focal-12 main" &&
+           sudo apt-get update &&
+           sudo apt-get install -y clang-format-12 clang-tidy-12
+    
+    - name: Coding Style checks
+      run: ${{github.workspace}}/format.sh check
+
+    - name: Install conan
+      run: pip3 install conan
+
+    - name: Configure CMake
+      # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
+      # See https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html?highlight=cmake_build_type
+      # Using -DCMAKE_EXPORT_COMPILE_COMMANDS=ON option to generate compile_commands.json wich will be used by clang-tidy
+      run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
+
+    - name: Run static analysis
+      run: ./static-analysis.sh -p ${{github.workspace}}/build
+
+    - name: Build
+      # Build your program with the given configuration
+      run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
+
+    - name: Pack
+      run: cpack --config ${{github.workspace}}/build/CPackConfig.cmake
+
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ github.run_number }}
+        release_name: Release ${{ github.run_number }}
+        draft: false
+        prerelease: false
+    - name: Upload Release Asset
+      id: upload-release-asset
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./hello-0.0.${{ github.run_number }}-Linux.deb
+        asset_name: hello-0.0.${{ github.run_number }}-Linux.deb
+        asset_content_type: application/vnd.debian.binary-package
