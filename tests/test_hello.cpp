@@ -7,5 +7,5 @@
 TEST(Hello, simple) {
   std::stringstream ss;
   hello::greetings(ss);
-  ASSERT_EQ("Hello, world", ss.str());
+  ASSERT_EQ("Hello, world!", ss.str());
 }
